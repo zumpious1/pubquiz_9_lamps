@@ -9,8 +9,9 @@ export function Nine_lamps() {
 
     const [cookies, setCookie, removeCookie] = useCookies(['puzzle-solved']);
 
-
     //Todo get timer value from child and prevent more input after timer ran up
+    //Todo save states to cookies if times up
+    //Todo Load last set of lamps if times from cookie after reload
     //Create a time reference
     const timeRef = useRef();
 
@@ -90,43 +91,61 @@ export function Nine_lamps() {
             </div>
 
             <div className="row">
-                <button onClick={() => {changeLampState(1)}}
+                <button onClick={() => {
+                    changeLampState(1)
+                }}
                         className={lampsState[0] ? 'active' : 'not-active'}>
                     1
                 </button>
-                <button onClick={() => {changeLampState(2)}}
+                <button onClick={() => {
+                    changeLampState(2)
+                }}
                         className={lampsState[1] ? 'active' : 'not-active'}>
                     2
                 </button>
-                <button onClick={() => {changeLampState(3)}}
+                <button onClick={() => {
+                    changeLampState(3)
+                }}
                         className={lampsState[2] ? 'active' : 'not-active'}>
                     3
                 </button>
             </div>
             <div className="row">
-                <button onClick={() => {changeLampState(4)}}
+                <button onClick={() => {
+                    changeLampState(4)
+                }}
                         className={lampsState[3] ? 'active' : 'not-active'}>
                     4
                 </button>
-                <button onClick={() => {changeLampState(5)}}
+                <button onClick={() => {
+                    changeLampState(5)
+                }}
                         className={lampsState[4] ? 'active' : 'not-active'}>
                     5
                 </button>
-                <button onClick={() => {changeLampState(6)}}
+                <button onClick={() => {
+                    changeLampState(6)
+                }}
                         className={lampsState[5] ? 'active' : 'not-active'}>
                     6
                 </button>
             </div>
             <div className="row">
-                <button onClick={() => {changeLampState(7)}}
+                <button onClick={() => {
+                    changeLampState(7)
+                }}
                         className={lampsState[6] ? 'active' : 'not-active'}>
                     7
                 </button>
-                <button onClick={() => {changeLampState(8)}}
+                <button onClick={() => {
+                    changeLampState(8)
+                }}
                         className={lampsState[7] ? 'active' : 'not-active'}>
                     8
                 </button>
-                <button onClick={() => {changeLampState(9)}}
+                <button onClick={() => {
+                    changeLampState(9)
+                }}
                         className={lampsState[8] ? 'active' : 'not-active'}>
                     9
                 </button>

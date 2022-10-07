@@ -1,7 +1,7 @@
 import './App.css';
 import Nine_lamps from "./components/Nine_lamps";
 import Header from "./components/Header";
-import { CookiesProvider } from 'react-cookie';
+import {CookiesProvider} from 'react-cookie';
 
 
 function App() {
@@ -15,10 +15,10 @@ function App() {
         <CookiesProvider>
             <div>
                 <div className="header">
-                    <Header />
+                    <Header/>
                 </div>
                 <div className="content">
-                    <Nine_lamps />
+                    <Nine_lamps/>
                 </div>
             </div>
         </CookiesProvider>
