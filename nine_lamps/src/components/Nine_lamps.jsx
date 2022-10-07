@@ -1,19 +1,29 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import Timer from "./Timer";
+import {useCookies} from "react-cookie";
 
 export function Nine_lamps() {
     const [lampsState, setLampsState] = useState([false, false, false, false, false, false, false, false, false]);
     const [startStopTimer, setStartStopTimer] = useState(false);
     const [problemSolved, setProblemSolved] = useState(false)
 
-    useEffect(() => {
-        console.log('lampsState:  ', lampsState);
-        console.log('true array: ',[true, true, true, true, true, true, true, true, true])
+    const [cookies, setCookie, removeCookie] = useCookies(['puzzle-solved']);
 
+
+    //Todo get timer value from child and prevent more input after timer ran up
+    //Create a time reference
+    const timeRef = useRef();
+
+    useEffect(() => {
+        //stop puzzle when array are equal
         if (arrayEquals(lampsState, [true, true, true, true, true, true, true, true, true])) {
             setStartStopTimer(false);
             setProblemSolved(true);
+
+            //Save time here
+            setCookie('puzzle-solved', 'success', {path: '/'})
         }
+
     }, [lampsState]);
 
     //Compare arrays
@@ -24,7 +34,7 @@ export function Nine_lamps() {
             a.every((val, index) => val === b[index]);
     }
 
-    //Toggle lampstate of given lamp and their direct neighbours
+    //Toggle lampState of given lamp and their direct neighbours
     const changeLampState = function (lamp) {
         if (problemSolved) {
             return;
