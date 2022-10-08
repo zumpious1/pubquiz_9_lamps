@@ -8,13 +8,20 @@ export function Nine_lamps() {
     const [startStopTimer, setStartStopTimer] = useState(false);
     const [problemSolved, setProblemSolved] = useState(false);
     const [problemCouldntBeSolved, setProblemCouldntBeSolved] = useState(false);
-
-    const [counter, setCounter] = useState(10);
-
+    const [counter, setCounter] = useState(300);
     const [cookies, setCookie, removeCookie] = useCookies(['puzzle-solved']);
 
-    //Todo save states to cookies if times up
-    //Todo Load last set of lamps if times from cookie after reload
+    //Todo How to handle reload?? __ save state to cookie every second? / save remaning time to cookie every few seconds to prevent reload abuse?
+    //Todo load lampstate and time from cookie if cookie exists
+    useEffect(() => {
+        console.log(Object.keys(cookies).length === 0);
+
+        // A cookie entry has been made
+        if (Object.keys(cookies).length > 0) {
+
+        }
+
+    }, [])
 
     //Update Timer
     useEffect(() => {
@@ -38,7 +45,7 @@ export function Nine_lamps() {
             setProblemSolved(true);
 
             //Save time here
-            setCookie('puzzle-solved', 'success-'+(10-counter), {path: '/'})
+            setCookie('puzzle-solved', 'success-'+(300-counter), {path: '/'})
         }
     }, [lampsState]);
 
