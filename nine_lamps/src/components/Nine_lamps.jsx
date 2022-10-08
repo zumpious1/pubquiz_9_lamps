@@ -1,5 +1,4 @@
 import {useEffect, useRef, useState} from "react";
-import Timer from "./Timer";
 import {useCookies} from "react-cookie";
 import elec_on from '../img/electricity_on.png';
 import elec_off from '../img/electricity_off.png';
@@ -7,26 +6,40 @@ import elec_off from '../img/electricity_off.png';
 export function Nine_lamps() {
     const [lampsState, setLampsState] = useState([false, false, false, false, false, false, false, false, false]);
     const [startStopTimer, setStartStopTimer] = useState(false);
-    const [problemSolved, setProblemSolved] = useState(false)
+    const [problemSolved, setProblemSolved] = useState(false);
+    const [problemCouldntBeSolved, setProblemCouldntBeSolved] = useState(false);
+
+    const [counter, setCounter] = useState(10);
 
     const [cookies, setCookie, removeCookie] = useCookies(['puzzle-solved']);
 
-    //Todo get timer value from child and prevent more input after timer ran up
     //Todo save states to cookies if times up
     //Todo Load last set of lamps if times from cookie after reload
-    //Create a time reference
-    const timeRef = useRef();
+
+    //Update Timer
+    useEffect(() => {
+        if (startStopTimer) {
+            if (counter < 1) {
+                setProblemCouldntBeSolved(true);
+                setCookie('puzzle-solved', 'failure-'+lampsState.toString(), {path: '/'})
+            }
+
+            const timer =
+                counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+            return () => clearInterval(timer);
+        }
+
+    }, [counter, startStopTimer])
 
     useEffect(() => {
-        //stop puzzle when array are equal
+        //stop puzzle when arrays are equal
         if (arrayEquals(lampsState, [true, true, true, true, true, true, true, true, true])) {
             setStartStopTimer(false);
             setProblemSolved(true);
 
             //Save time here
-            setCookie('puzzle-solved', 'success', {path: '/'})
+            setCookie('puzzle-solved', 'success-'+(10-counter), {path: '/'})
         }
-
     }, [lampsState]);
 
     //Compare arrays
@@ -39,7 +52,7 @@ export function Nine_lamps() {
 
     //Toggle lampState of given lamp and their direct neighbours
     const changeLampState = function (lamp) {
-        if (problemSolved) {
+        if (problemSolved || problemCouldntBeSolved) {
             return;
         }
 
@@ -79,17 +92,24 @@ export function Nine_lamps() {
 
     //Reset lamps to start position
     const resetLampstates = function () {
-
-        if (!problemSolved) {
+        if (!problemSolved && !problemCouldntBeSolved) {
             setLampsState([false, false, false, false, false, false, false, false, false])
         }
     }
 
+    //Parse seconds to minutes with seconds
+    function secondsToTime(e) {
+        const h = Math.floor(e / 3600).toString().padStart(2, '0'),
+            m = Math.floor(e % 3600 / 60).toString().padStart(2, '0'),
+            s = Math.floor(e % 60).toString().padStart(2, '0');
+
+        return m + ':' + s;
+    }
+
     return (
         <div className="nine_lamps_content">
-
-            <div className="row">
-                <Timer startStopTimer={startStopTimer}/>
+            <div>
+                <div className="timer">Timer: {secondsToTime(counter)}</div>
             </div>
 
             <div className="row">
