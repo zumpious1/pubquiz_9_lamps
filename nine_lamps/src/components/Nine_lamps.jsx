@@ -1,6 +1,8 @@
 import {useEffect, useRef, useState} from "react";
 import Timer from "./Timer";
 import {useCookies} from "react-cookie";
+import elec_on from '../img/electricity_on.png';
+import elec_off from '../img/electricity_off.png';
 
 export function Nine_lamps() {
     const [lampsState, setLampsState] = useState([false, false, false, false, false, false, false, false, false]);
@@ -91,23 +93,37 @@ export function Nine_lamps() {
             </div>
 
             <div className="row">
-                <button onClick={() => {
-                    changeLampState(1)
-                }}
-                        className={lampsState[0] ? 'active' : 'not-active'}>
-                    1
+                <button
+                    onClick={() => {
+                        changeLampState(1)
+                    }}
+                    className={lampsState[0] ? 'active' : 'not-active'}>
+                    {
+                        lampsState[0] ?
+                            <img src={elec_on} alt="electricity off"/> :
+                            <img src={elec_off} alt="electricity off"/>
+                    }
                 </button>
-                <button onClick={() => {
-                    changeLampState(2)
-                }}
-                        className={lampsState[1] ? 'active' : 'not-active'}>
-                    2
+                <button
+                    onClick={() => {
+                        changeLampState(2)
+                    }}
+                    className={lampsState[1] ? 'active' : 'not-active'}>
+                    {
+                        lampsState[1] ?
+                            <img src={elec_on} alt="electricity off"/> :
+                            <img src={elec_off} alt="electricity off"/>
+                    }
                 </button>
                 <button onClick={() => {
                     changeLampState(3)
                 }}
                         className={lampsState[2] ? 'active' : 'not-active'}>
-                    3
+                    {
+                        lampsState[2] ?
+                            <img src={elec_on} alt="electricity off"/> :
+                            <img src={elec_off} alt="electricity off"/>
+                    }
                 </button>
             </div>
             <div className="row">
@@ -115,19 +131,31 @@ export function Nine_lamps() {
                     changeLampState(4)
                 }}
                         className={lampsState[3] ? 'active' : 'not-active'}>
-                    4
+                    {
+                        lampsState[3] ?
+                            <img src={elec_on} alt="electricity off"/> :
+                            <img src={elec_off} alt="electricity off"/>
+                    }
                 </button>
                 <button onClick={() => {
                     changeLampState(5)
                 }}
                         className={lampsState[4] ? 'active' : 'not-active'}>
-                    5
+                    {
+                        lampsState[4] ?
+                            <img src={elec_on} alt="electricity off"/> :
+                            <img src={elec_off} alt="electricity off"/>
+                    }
                 </button>
                 <button onClick={() => {
                     changeLampState(6)
                 }}
                         className={lampsState[5] ? 'active' : 'not-active'}>
-                    6
+                    {
+                        lampsState[5] ?
+                            <img src={elec_on} alt="electricity off"/> :
+                            <img src={elec_off} alt="electricity off"/>
+                    }
                 </button>
             </div>
             <div className="row">
@@ -135,19 +163,31 @@ export function Nine_lamps() {
                     changeLampState(7)
                 }}
                         className={lampsState[6] ? 'active' : 'not-active'}>
-                    7
+                    {
+                        lampsState[6] ?
+                            <img src={elec_on} alt="electricity off"/> :
+                            <img src={elec_off} alt="electricity off"/>
+                    }
                 </button>
                 <button onClick={() => {
                     changeLampState(8)
                 }}
                         className={lampsState[7] ? 'active' : 'not-active'}>
-                    8
+                    {
+                        lampsState[7] ?
+                            <img src={elec_on} alt="electricity off"/> :
+                            <img src={elec_off} alt="electricity off"/>
+                    }
                 </button>
                 <button onClick={() => {
                     changeLampState(9)
                 }}
                         className={lampsState[8] ? 'active' : 'not-active'}>
-                    9
+                    {
+                        lampsState[8] ?
+                            <img src={elec_on} alt="electricity off"/> :
+                            <img src={elec_off} alt="electricity off"/>
+                    }
                 </button>
             </div>
 
