@@ -4,20 +4,51 @@ import elec_on from '../img/electricity_on.png';
 import elec_off from '../img/electricity_off.png';
 
 export function Nine_lamps() {
+    //Define the maximum puzzle time in seconds
+    const TIMER_IN_SECONDS = 10;
+
+    //Set local states
     const [lampsState, setLampsState] = useState([false, false, false, false, false, false, false, false, false]);
     const [startStopTimer, setStartStopTimer] = useState(false);
     const [problemSolved, setProblemSolved] = useState(false);
+
     const [problemCouldntBeSolved, setProblemCouldntBeSolved] = useState(false);
-    const [counter, setCounter] = useState(300);
+
+    const [counter, setCounter] = useState(TIMER_IN_SECONDS);
     const [cookies, setCookie, removeCookie] = useCookies(['puzzle-solved']);
 
     //Todo How to handle reload?? __ save state to cookie every second? / save remaning time to cookie every few seconds to prevent reload abuse?
     //Todo load lampstate and time from cookie if cookie exists
     useEffect(() => {
-        console.log(Object.keys(cookies).length === 0);
-
         // A cookie entry has been made
         if (Object.keys(cookies).length > 0) {
+            let cookieArray = cookies['puzzle-solved'].split('-');
+
+            if (cookieArray[0] === 'failure') {
+                setProblemCouldntBeSolved(true);
+
+                //Create loosingState array
+                let loosingArrayWithString = cookieArray[1].split(',');
+
+                //Turn string values of loosingArray into boolean values
+                loosingArrayWithString.forEach((value, key) => {
+                    if (value === 'true') {
+                        loosingArrayWithString[key] = true;
+                    } else {
+                        loosingArrayWithString[key] = false;
+                    }
+                })
+
+                setCounter(0);
+                setLampsState([loosingArrayWithString[0],loosingArrayWithString[1],loosingArrayWithString[2],loosingArrayWithString[3],loosingArrayWithString[4],loosingArrayWithString[5],loosingArrayWithString[6],loosingArrayWithString[7],loosingArrayWithString[8]])
+            }
+
+            //Prevent players from puzzling again if puzzle has already been solved
+            if (cookieArray[0] === "success") {
+                setProblemSolved(true);
+                setLampsState([true, true, true, true, true, true, true, true, true]);
+                setCounter(cookies['puzzle-solved'].split('-')[1])
+            }
 
         }
 
@@ -38,14 +69,15 @@ export function Nine_lamps() {
 
     }, [counter, startStopTimer])
 
+    //Check if puzzle is solved and set success-cookie if so
     useEffect(() => {
-        //stop puzzle when arrays are equal
-        if (arrayEquals(lampsState, [true, true, true, true, true, true, true, true, true])) {
+        //stop puzzle when arrays are equal and cookie has not been created yet
+        if (arrayEquals(lampsState, [true, true, true, true, true, true, true, true, true]) && !Object.keys(cookies).length > 0) {
             setStartStopTimer(false);
             setProblemSolved(true);
 
             //Save time here
-            setCookie('puzzle-solved', 'success-'+(300-counter), {path: '/'})
+            setCookie('puzzle-solved', 'success-'+(counter), {path: '/'})
         }
     }, [lampsState]);
 
@@ -66,6 +98,7 @@ export function Nine_lamps() {
         if (!startStopTimer) {
             setStartStopTimer(true);
         }
+
         switch (lamp) {
             case (1):
                 setLampsState([!lampsState[0], !lampsState[1], lampsState[2], !lampsState[3], lampsState[4], lampsState[5], lampsState[6], lampsState[7], lampsState[8]]);
@@ -98,7 +131,7 @@ export function Nine_lamps() {
     }
 
     //Reset lamps to start position
-    const resetLampstates = function () {
+    const resetLampStates = function () {
         if (!problemSolved && !problemCouldntBeSolved) {
             setLampsState([false, false, false, false, false, false, false, false, false])
         }
@@ -219,7 +252,7 @@ export function Nine_lamps() {
             </div>
 
             <div className="reset">
-                <button onClick={resetLampstates}>
+                <button onClick={resetLampStates}>
                     Zurücksetzen
                 </button>
             </div>
