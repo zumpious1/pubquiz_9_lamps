@@ -59,7 +59,7 @@ export function Nine_lamps() {
         if (startStopTimer) {
             if (counter < 1) {
                 setProblemCouldntBeSolved(true);
-                setCookie('puzzle-solved', 'failure-'+lampsState.toString(), {path: '/'})
+                setCookie('puzzle-solved', 'failure-'+lampsState.toString(), {path: '/', maxAge: 2000})
             }
 
             const timer =
@@ -77,7 +77,7 @@ export function Nine_lamps() {
             setProblemSolved(true);
 
             //Save time here
-            setCookie('puzzle-solved', 'success-'+(counter), {path: '/'})
+            setCookie('puzzle-solved', 'success-'+(counter), {path: '/', maxAge: 2000})
         }
     }, [lampsState]);
 
