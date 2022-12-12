@@ -7,12 +7,17 @@ export function Header() {
             </div>
             <div className="ruleset">
                 <p>
-                    Für die Bearbeitung habt ihr <span className="bold">5 min</span> Zeit. Für die richtige Lösung
-                    bekommt ihr <span className="bold">2 Punkte</span>.
+                    Scrollt ihr im Anschluss an diesen Text nach unten seht ihr <span className="bold">9 ausgeschaltete Lampen</span>, symbolisiert durch die Blitze.
+                    Durch klicken auf eine Lampe schaltet ihr diese an, bzw durch erneutes klicken auf die selbe Lampe wieder aus.
+                    Wird eine Lampe eingeschaltet, so schalten sich auch alle direkten vertikalen und horizontalen Lampen ein, bzw aus, wenn sie bereits an sind.
+                    Eure Aufgabe ist es, alle <span className="bold"> 9 Lampen gleichzeitig einzuschalten</span>.
+                </p>
+                <p>
+                    Für die Bearbeitung habt ihr <span className="bold">5 min</span> Zeit. Nur durch die richtige Lösung werden euch die Punkte der richtig erkannten Sprichwörter gutgeschrieben.
                 </p>
                 <p>
                     Ihr habt so viele Versuche wie ihr mögt.
-                    <span className="bold"> Eure Zeit läuft sobald die erste Laterne beleuchtet wird.</span>
+                    <span className="bold"> Eure Zeit läuft sobald die erste Lampe beleuchtet wird.</span>
                 </p>
                 <p>
                     Bei korrekter Lösung kann sich ein <span className="bold">Extrapunkt</span> verdient werden.

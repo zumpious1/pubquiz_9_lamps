@@ -5,7 +5,7 @@ import elec_off from '../img/electricity_off.png';
 
 export function Nine_lamps() {
     //Define the maximum puzzle time in seconds
-    const TIMER_IN_SECONDS = 10;
+    const TIMER_IN_SECONDS = 300;
 
     //Set local states
     const [lampsState, setLampsState] = useState([false, false, false, false, false, false, false, false, false]);
@@ -18,7 +18,6 @@ export function Nine_lamps() {
     const [cookies, setCookie, removeCookie] = useCookies(['puzzle-solved']);
 
     //Todo How to handle reload?? __ save state to cookie every second? / save remaning time to cookie every few seconds to prevent reload abuse?
-    //Todo load lampstate and time from cookie if cookie exists
     useEffect(() => {
         // A cookie entry has been made
         if (Object.keys(cookies).length > 0) {
@@ -47,12 +46,13 @@ export function Nine_lamps() {
             if (cookieArray[0] === "success") {
                 setProblemSolved(true);
                 setLampsState([true, true, true, true, true, true, true, true, true]);
-                setCounter(cookies['puzzle-solved'].split('-')[1])
+                setCounter(cookies['puzzle-solved'].split('-')[1]);
             }
 
         }
 
-    }, [])
+
+        }, [])
 
     //Update Timer
     useEffect(() => {
